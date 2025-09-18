@@ -3,46 +3,75 @@
 import Link from "next/link";
 import { useState } from "react";
 
-
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
-    <>
-      {/* Botão Hamburguer (mobile) */}
-      <button 
-        className="md:hidden p-2 focus:outline-none"
-        onClick={toggleMenu}
-        aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
-      >
-       
-      </button>
+    <nav className="bg-red-600 p-4">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        {/* Logo */}
+        <div className="text-white font-bold text-xl"></div>
 
-      {/* Menu Desktop (sempre visível em telas grandes) */}
-      <ul className="hidden md:flex gap-2 font-bold text-2xl">
-        <li><Link href="/#cardapio" className="hover:text-red-200 transition-colors">Cardápio</Link></li>
-        <li><Link href="#" className="hover:text-red-200 transition-colors">Sobre</Link></li>
-        <li><Link href="#" className="hover:text-red-200 transition-colors">Avaliações</Link></li>
-        <li><Link href="#" className="hover:text-red-200 transition-colors">Contato</Link></li>
-      </ul>
+        {/* Menu para desktop */}
+        <ul className="hidden md:flex uppercase font-semibold flex-row gap-6">
+          <li>
+            <Link href="/#cardapio" className="hover:text-red-200 transition-colors">
+              Cardápio
+            </Link>
+          </li>
+          <li>
+            <Link href="#" className="hover:text-red-200 transition-colors">
+              Sobre
+            </Link>
+          </li>
+          <li>
+            <Link href="#" className="hover:text-red-200 transition-colors">
+              Avaliações
+            </Link>
+          </li>
+          <li>
+            <Link href="#" className="hover:text-red-200 transition-colors">
+              Contato
+            </Link>
+          </li>
+        </ul>
 
-      {/* Menu Mobile (aparece quando isOpen = true) */}
-      {isOpen && (
-        <div className="md:hidden absolute top-16 left-0 w-full bg-red-600 shadow-lg py-4 px-4 z-40">
-          <ul className="flex flex-col gap-4">
-            <li><Link href="#" onClick={toggleMenu} className="block hover:text-red-200 transition-colors">Cardápio</Link></li>
-            <li><Link href="#" onClick={toggleMenu} className="block hover:text-red-200 transition-colors">Sobre</Link></li>
-            <li><Link href="#" onClick={toggleMenu} className="block hover:text-red-200 transition-colors">Avaliações</Link></li>
-            <li><Link href="#" onClick={toggleMenu} className="block hover:text-red-200 transition-colors">Contato</Link></li>
-          </ul>
+        {/* Botão hambúrguer para mobile */}
+        <div className="md:hidden">
+          <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">
+            {isOpen ? "✖" : "☰"}
+          </button>
         </div>
+      </div>
+
+      {/* Menu mobile */}
+      {isOpen && (
+        <ul className="flex flex-col gap-4 mt-4 uppercase font-semibold text-white md:hidden">
+          <li>
+            <Link href="/#cardapio" onClick={() => setIsOpen(false)}>
+              Cardápio
+            </Link>
+          </li>
+          <li>
+            <Link href="#" onClick={() => setIsOpen(false)}>
+              Sobre
+            </Link>
+          </li>
+          <li>
+            <Link href="#" onClick={() => setIsOpen(false)}>
+              Avaliações
+            </Link>
+          </li>
+          <li>
+            <Link href="#" onClick={() => setIsOpen(false)}>
+              Contato
+            </Link>
+          </li>
+        </ul>
       )}
-    </>
+    </nav>
   );
 };
 
 export default NavBar;
+
