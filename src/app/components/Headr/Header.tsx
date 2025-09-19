@@ -80,7 +80,7 @@ const Header = () => {
             <ul>
               {cartItems.map((item) => (
                 <li key={item.id} className="border-b py-2">
-                  <span className="font-semibold">{item.name}</span> —{" "}
+                  <span className="font-semibold">{item.name}</span> —{""}
                   <span className="text-gray-600">Qtd: {item.qtd}</span>
                 </li>
               ))}

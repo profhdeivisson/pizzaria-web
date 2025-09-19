@@ -30,11 +30,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <CartProvider>
-        <Header/>
-        <main className="bg-white h-screen">{children}</main>
-        <CartProvider/>
+          <Header />
+          <main className="bg-white h-screen">{children}</main>
         </CartProvider>
       </body>
     </html>
   );
 }
+
