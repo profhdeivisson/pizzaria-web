@@ -3,12 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FaShoppingCart } from "react-icons/fa";
-import { FiX } from "react-icons/fi";
-import NavBar from "./NavBar";
-import { useCart } from "@/context/CartContext"; // Corrigido o caminho
+import { FiX, FiMenu } from "react-icons/fi";
+import { useCart } from "@/context/CartContext";
+import { useState } from "react";
 
 const Header = () => {
   const { isOpen, toggleCart, cartItems } = useCart();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // quantidade total de itens
   const totalItems = (cartItems ?? []).reduce((acc, item) => acc + item.qtd, 0);
@@ -43,9 +44,24 @@ const Header = () => {
             </Link>
 
             {/* Menu + Carrinho */}
-            <div className="flex items-center gap-4">
-              <NavBar />
+            <div className="flex items-center gap-6">
+              {/* Menu Desktop */}
+              <nav className="hidden md:flex gap-6 uppercase font-semibold text-sm">
+                <Link href="/#cardapio" className="hover:text-amber-400">
+                  Cardápio
+                </Link>
+                <Link href="/#promocoes" className="hover:text-amber-400">
+                  Promoções
+                </Link>
+                <Link href="/#sobre" className="hover:text-amber-400">
+                  Sobre Nós
+                </Link>
+                <Link href="/#contato" className="hover:text-amber-400">
+                  Contato
+                </Link>
+              </nav>
 
+              {/* Carrinho */}
               <div className="relative">
                 <button
                   onClick={toggleCart}
@@ -55,19 +71,48 @@ const Header = () => {
                   <FaShoppingCart size={20} />
                 </button>
 
-                {/* Badge com a quantidade */}
+                {/* Badge */}
                 {totalItems > 0 && (
                   <span className="absolute -top-1 -right-1 bg-amber-400 text-black text-xs font-bold px-1.5 py-0.5 rounded-full">
                     {totalItems}
                   </span>
                 )}
               </div>
+
+              {/* Menu Hambúrguer Mobile */}
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="md:hidden p-2 bg-red-700 rounded-full hover:bg-red-800 transition-colors"
+                aria-label="Abrir menu"
+              >
+                <FiMenu size={22} />
+              </button>
             </div>
           </div>
+
+          {/* Menu Mobile */}
+          {isMenuOpen && (
+            <div className="md:hidden mt-3 bg-red-700 rounded-lg p-4">
+              <nav className="flex flex-row gap-3 uppercase font-semibold text-sm">
+                <Link href="/#cardapio" className="hover:text-amber-400">
+                  Cardápio
+                </Link>
+                <Link href="/#promocoes" className="hover:text-amber-400">
+                  Promoções
+                </Link>
+                <Link href="/#sobre" className="hover:text-amber-400">
+                  Sobre Nós
+                </Link>
+                <Link href="/#contato" className="hover:text-amber-400">
+                  Contato
+                </Link>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 
-      {/* Aside do carrinho */}
+      {/* Carrinho Lateral */}
       {isOpen && (
         <aside className="fixed right-0 top-0 h-full w-80 bg-white shadow-lg z-50 p-4 overflow-y-auto">
           <div className="flex justify-between items-center">
@@ -80,7 +125,7 @@ const Header = () => {
             <ul>
               {cartItems.map((item) => (
                 <li key={item.id} className="border-b py-2">
-                  <span className="font-semibold">{item.name}</span> —{""}
+                  <span className="font-semibold">{item.name}</span> —{" "}
                   <span className="text-gray-600">Qtd: {item.qtd}</span>
                 </li>
               ))}
