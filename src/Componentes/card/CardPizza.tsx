@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { PizzaItem } from "@/data/menu";
+import { PizzaItem } from '@/data/menu';
 
 type CardPizzaProps = {
   pizza: PizzaItem;
@@ -39,7 +39,7 @@ export default function CardPizza({
         <button
           onClick={onIncrease}
           disabled={locked}
-          className="px-3 py-1 bg-green-500 text-white rounded disabled:opacity-50"
+          className="px-3 py-1 bg-green-500 text-black rounded disabled:opacity-50"
         >
           +
         </button>
