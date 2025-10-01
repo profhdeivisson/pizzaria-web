@@ -1,16 +1,19 @@
 // src/context/CartContext.tsx
 "use client";
 import { createContext, useContext, useState, useCallback } from "react";
+import type { PizzaItem } from "@/data/menu";
 
-interface CartItem {
-  id: number;
-  name: string;
+export interface CartItem {
+  id: number;            // id único do item no carrinho
+  flavors: PizzaItem[];  // até 2 sabores
+  size: string;          // Pequena, Média, Grande
   qtd: number;
 }
 
 interface CartContextType {
   cartItems: CartItem[];
-  setCartItems: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  addToCart: (item: Omit<CartItem, "id">) => void;
+  removeFromCart: (id: number) => void;
   isOpen: boolean;
   toggleCart: () => void;
   openCart: () => void;
@@ -23,13 +26,24 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
+  const addToCart = useCallback((item: Omit<CartItem, "id">) => {
+    setCartItems((prev) => [
+      ...prev,
+      { id: Date.now(), ...item }, // id único
+    ]);
+  }, []);
+
+  const removeFromCart = useCallback((id: number) => {
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  }, []);
+
   const openCart = useCallback(() => setIsOpen(true), []);
   const closeCart = useCallback(() => setIsOpen(false), []);
   const toggleCart = useCallback(() => setIsOpen((p) => !p), []);
 
   return (
     <CartContext.Provider
-      value={{ cartItems, setCartItems, isOpen, toggleCart, openCart, closeCart }}
+      value={{ cartItems, addToCart, removeFromCart, isOpen, toggleCart, openCart, closeCart }}
     >
       {children}
     </CartContext.Provider>
@@ -43,4 +57,3 @@ export const useCart = () => {
   }
   return context;
 };
-

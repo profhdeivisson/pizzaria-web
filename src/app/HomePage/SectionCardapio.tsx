@@ -6,7 +6,7 @@ const categorias = [
   {
     nome: "PIZZAS",
     imagem: "/img/pizza.jpg",
-    link: "/pizzas",
+    link: "/pizza",
   },
   {
     nome: "ESFIHAS",
