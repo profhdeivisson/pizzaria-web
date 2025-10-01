@@ -1,6 +1,7 @@
 'use client';
 import { FiX } from 'react-icons/fi';
-import { useCart } from '../context/CartContext'; // <-- ajuste se sua pasta for diferente
+import React from "react";
+import { useCart } from "../../../context/CartContext"; // <-- ajuste se sua pasta for diferente
 
 export default function CartAside() {
   const { isOpen, closeCart, toggleCart, cartItems } = useCart();
