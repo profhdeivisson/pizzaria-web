@@ -129,7 +129,7 @@ export default function SectionPizza() {
 
           <button
             onClick={handleAddToCart}
-            className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 disabled:opacity-50"
+            className="bg-red-500 text-black-300 px-6 py-2 rounded-lg hover:bg-blue-600 disabled:opacity-50"
             disabled={!size}
           >
             Adicionar Pizza ao Carrinho

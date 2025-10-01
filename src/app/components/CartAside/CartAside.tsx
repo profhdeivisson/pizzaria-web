@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useCart } from "../context/CartContext"; // <-- ajuste se sua pasta for diferente
+import { useCart } from "../../../context/CartContext"; // <-- ajuste se sua pasta for diferente
 
 export default function CartAside() {
   const { isOpen, closeCart, cartItems } = useCart();
@@ -47,7 +47,7 @@ export default function CartAside() {
                 <li key={item.id} className="border-b py-3">
                   <div className="flex justify-between">
                     <div>
-                      <div className="font-semibold">{item.name}</div>
+                      <div className="font-semibold">{item.id}</div>
                       <div className="text-sm text-gray-600">Qtd: {item.qtd}</div>
                     </div>
                   </div>
